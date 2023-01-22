@@ -12,8 +12,9 @@ function App() {
       <p><NavLink to='/albums'>Album</NavLink></p>
       <Routes>
         
-
-        <Route path="/" element={<div></div>} />
+        <Route path="home" element={<Navigate to="/" replace/>}/>
+        <Route path="/post/:postId" element={<Navigate to="/posts/:postId" replace/>}/>
+        <Route path="/" element={<div></div>}/>
         <Route path="/todos" element={<TodoFeature/>}/>
         <Route path="/albums" element={<AlbumFeature/>}/>
       </Routes>
