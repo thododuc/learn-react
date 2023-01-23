@@ -1,65 +1,24 @@
 import React, { useState } from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import TodoList from './components/TodoList';
+import DetailPage from './pages/DetailPage';
+import ListPage from './pages/ListPage';
 
 TodoFeature.propTypes = {
   
 };
 
 function TodoFeature(props) {
-  const initTodoList = [
-    {
-      id: 1,
-      title: 'Eat',
-      status: 'new',
-    },
-    {
-      id: 2,
-      title: 'Sleep',
-      status: 'completed',
-    },
-    {
-      id: 3,
-      title: 'Code',
-      status: 'new',
-    },
-  ]
-
-  const [todoList, setTodoList] = useState(initTodoList);
-  const [filteredStatus, setFilteredStatus] = useState('all')
-  const handleTodoClick = (todo, idx) => {
-    const newTodoList = [...todoList];
-    newTodoList[idx] = {
-      ...newTodoList[idx],
-      status: newTodoList[idx].status === 'completed'? 'new':'completed',
-    }
-    setTodoList(newTodoList);
-  }
-
-  const handleShowAll = () => {
-    setFilteredStatus('all');
-  }
-  const handleShowCompleted = () => {
-    setFilteredStatus('completed');
-  }
-  const handleShowNew = () => {
-    setFilteredStatus('new');
-  }
-
-  const renderedTodoList = todoList.filter(todo => filteredStatus === 'all' || filteredStatus === todo.status)
-  console.log(renderedTodoList);
-
   return (
     <div>
-      <h2>Todo List</h2>
-      <p>Misson - {filteredStatus}</p>
-      <TodoList todoList={renderedTodoList} onTodoClick={handleTodoClick}/>
+      <p><Link to='todos'>List Page</Link></p>
+      <p><Link to='123'>Detail Page</Link></p>
+      <Routes>
+        <Route path='/' element={<ListPage/>}/>
+        <Route path=':todoId' element={<DetailPage/>}/>
 
-      <div>
-        <button onClick={handleShowAll}>Show All</button>
-        <button onClick={handleShowCompleted}>Show Completed</button>
-        <button onClick={handleShowNew}>Show New</button>
-      </div>
+      </Routes>
     </div>
   );
 }
