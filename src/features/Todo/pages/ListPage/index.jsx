@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import TodoList from '../../components/TodoList';
 import queryString from 'query-string';
@@ -27,13 +27,18 @@ function ListPage(props) {
     },
   ]
 
+  const navigate = useNavigate()
   const location = useLocation()
   const [todoList, setTodoList] = useState(initTodoList);
   const [filteredStatus, setFilteredStatus] = useState(() => {
     const params = queryString.parse(location.search);
-    console.log(params)
     return params.status || 'all'
   });
+
+  useEffect(() => {
+    const params = queryString.parse(location.search)
+    setFilteredStatus(params.status || 'all')
+  },[location.search]);
 
 
   const handleTodoClick = (todo, idx) => {
@@ -46,16 +51,17 @@ function ListPage(props) {
   }
 
   const handleShowAll = () => {
-    setFilteredStatus('all');
+    navigate('?status=all');
   }
   const handleShowCompleted = () => {
-    setFilteredStatus('completed');
+    navigate('?status=completed')
   }
   const handleShowNew = () => {
-    setFilteredStatus('new');
+    navigate('?status=new')
   }
-
-  const renderedTodoList = todoList.filter(todo => filteredStatus === 'all' || filteredStatus === todo.status)
+  const renderedTodoList = useMemo(() => {
+    return todoList.filter(todo => filteredStatus === 'all'|| filteredStatus === todo.status)
+  }, [todoList, filteredStatus]);
 
   return (
     <div>
