@@ -6,18 +6,18 @@ import TodoList from './components/TodoList';
 import DetailPage from './pages/DetailPage';
 import ListPage from './pages/ListPage';
 
-TodoFeature.propTypes = {
-  
-};
+TodoFeature.propTypes = {};
 
 function TodoFeature(props) {
   return (
     <div>
-      <p><Link to='123'>Detail Page</Link></p>
+      <p>
+        <Link to="123">Detail Page</Link>
+      </p>
       <Routes>
-        <Route path='/' element={<ListPage/>}/>
-        <Route path=':todoId' element={<DetailPage/>}/>
-        <Route path='*' element={<NotFound/>}/>
+        <Route path="/" element={<ListPage />} />
+        <Route path=":todoId" element={<DetailPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

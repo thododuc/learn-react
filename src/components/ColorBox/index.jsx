@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 
-ColorBox.propTypes = {
-  
-};
+ColorBox.propTypes = {};
 
 function ColorBox(props) {
   const [color, setColor] = useState('white');
   return (
     <div>
       {color}
-      <button onClick={() =>setColor('black')}>Change to black</button>
-      <button onClick={() =>setColor('red')}>Change to red</button>
+      <button onClick={() => setColor('black')}>Change to black</button>
+      <button onClick={() => setColor('red')}>Change to red</button>
     </div>
   );
 }
